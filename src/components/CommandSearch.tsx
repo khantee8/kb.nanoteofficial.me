@@ -6,9 +6,11 @@ import type { Item } from '@/lib/types';
 export function CommandSearch({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter(); const [q, setQ] = useState(''); const [items, setItems] = useState<Item[]>([]);
   useEffect(() => {
-    if (!open || !q.trim()) { setItems([]); return; }
+    if (!open) return;
+    const query = q.trim();
     const t = setTimeout(async () => {
-      const res = await fetch(`/api/items?q=${encodeURIComponent(q)}&limit=8`);
+      if (!query) { setItems([]); return; }
+      const res = await fetch(`/api/items?q=${encodeURIComponent(query)}&limit=8`);
       if (res.ok) setItems((await res.json()).items);
     }, 180);
     return () => clearTimeout(t);
