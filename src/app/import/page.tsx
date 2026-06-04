@@ -1,5 +1,5 @@
 import { requireSession } from '@/lib/session';
-import { NavBar } from '@/components/NavBar';
+import { AppChrome } from '@/components/AppChrome';
 import { GlassCard } from '@/components/GlassCard';
 import { SyncPanel } from '@/components/SyncPanel';
 import { recentSyncs } from '@/lib/syncLog';
@@ -10,7 +10,7 @@ export default async function ImportPage() {
   const logs = await recentSyncs();
   return (
     <>
-      <NavBar />
+      <AppChrome />
       <div style={{ padding: 18, display: 'grid', gap: 14, maxWidth: 760 }}>
         <GlassCard><h3 style={{ marginTop: 0 }}>Import & Export</h3><SyncPanel /></GlassCard>
         <GlassCard>

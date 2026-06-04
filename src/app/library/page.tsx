@@ -1,5 +1,5 @@
 import { requireSession } from '@/lib/session';
-import { NavBar } from '@/components/NavBar';
+import { AppChrome } from '@/components/AppChrome';
 import { FilterBar } from '@/components/FilterBar';
 import { ItemCard } from '@/components/ItemCard';
 import { listItems } from '@/lib/items';
@@ -15,7 +15,7 @@ export default async function LibraryPage({ searchParams }: { searchParams: Prom
   });
   return (
     <>
-      <NavBar /><FilterBar />
+      <AppChrome /><FilterBar />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: 12, padding: '4px 18px 24px' }}>
         {items.map(it => <ItemCard key={it.id} it={it} />)}
         {items.length === 0 && <p style={{ color: '#889' }}>No matching briefs.</p>}

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { requireSession } from '@/lib/session';
-import { NavBar } from '@/components/NavBar';
+import { AppChrome } from '@/components/AppChrome';
 import { GlassCard } from '@/components/GlassCard';
 import { listCollections } from '@/lib/collections';
 export const dynamic = 'force-dynamic';
@@ -10,7 +10,7 @@ export default async function CollectionsPage() {
   const cols = await listCollections();
   return (
     <>
-      <NavBar />
+      <AppChrome />
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: 12, padding: 18 }}>
         {cols.map(c => (
           <Link key={c.id} href={`/collections/${c.slug}`} style={{ textDecoration: 'none' }}>

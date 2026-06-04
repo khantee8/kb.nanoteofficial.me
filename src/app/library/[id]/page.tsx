@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { requireSession } from '@/lib/session';
-import { NavBar } from '@/components/NavBar';
+import { AppChrome } from '@/components/AppChrome';
 import { BriefReader } from '@/components/BriefReader';
 import { getItem } from '@/lib/items';
 
@@ -11,5 +11,5 @@ export default async function ReaderPage({ params }: { params: Promise<{ id: str
   const { id } = await params;
   const it = await getItem(id);
   if (!it) notFound();
-  return <><NavBar /><BriefReader it={it} /></>;
+  return <><AppChrome /><BriefReader it={it} /></>;
 }
