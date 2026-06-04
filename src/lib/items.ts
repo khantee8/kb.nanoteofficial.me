@@ -52,13 +52,26 @@ export async function getItem(id: string): Promise<Item | null> {
   return r ? rowToItem(r) : null;
 }
 
+// The neon driver parses Postgres date/timestamptz columns into JS Date objects.
+// Coerce to strings so the UI can render them directly (Item types them as string).
+function dateOnly(v: unknown): string | null {
+  if (v == null) return null;
+  if (v instanceof Date) return v.toISOString().slice(0, 10);
+  return String(v);
+}
+function iso(v: unknown): string | null {
+  if (v == null) return null;
+  if (v instanceof Date) return v.toISOString();
+  return String(v);
+}
+
 export function rowToItem(r: any): Item {
   return {
     id: r.id, kind: r.kind, externalId: r.external_id, dept: r.dept, category: r.category,
     summary: r.summary, highlight: r.highlight, bodyMd: r.body_md,
     flags: r.flags ?? [], artifacts: r.artifacts ?? [],
-    sourceDate: r.source_date, sourceTs: r.source_ts,
-    createdAt: r.created_at, updatedAt: r.updated_at, tags: r.tags ?? [],
+    sourceDate: dateOnly(r.source_date), sourceTs: iso(r.source_ts),
+    createdAt: iso(r.created_at) ?? '', updatedAt: iso(r.updated_at) ?? '', tags: r.tags ?? [],
     state: { pinned: r.pinned, archived: r.archived, saved: r.saved, read: r.read },
   };
 }
