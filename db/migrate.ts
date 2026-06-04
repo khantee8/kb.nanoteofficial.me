@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { neon } from '@neondatabase/serverless';
 
-const url = process.env.POSTGRES_URL;
-if (!url) { console.error('POSTGRES_URL not set'); process.exit(1); }
+const url = process.env.POSTGRES_URL ?? process.env.DATABASE_URL;
+if (!url) { console.error('POSTGRES_URL (or DATABASE_URL) not set'); process.exit(1); }
 const sql = neon(url);
 const ddl = readFileSync(new URL('./schema.sql', import.meta.url), 'utf8');
 
